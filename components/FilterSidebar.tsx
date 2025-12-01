@@ -15,9 +15,17 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterChange }
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onFilterChange({ ...filters, [e.target.name]: e.target.checked });
   };
-  
-  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-     onFilterChange({ ...filters, deadline: e.target.value });
+
+  const clearAll = () => {
+    onFilterChange({
+      deadlineStart: '',
+      deadlineEnd: '',
+      scholarshipAvailable: false,
+      fullyFunded: false,
+      phd: true,
+      master: false,
+      countrySearch: ''
+    });
   };
 
   return (
@@ -25,49 +33,41 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterChange }
       <div className="sticky top-24">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-bold text-text-light dark:text-text-dark">Filters</h3>
-          <button className="text-sm font-medium text-primary hover:underline bg-transparent border-none cursor-pointer">
+          <button 
+            onClick={clearAll}
+            className="text-sm font-medium text-primary hover:underline bg-transparent border-none cursor-pointer"
+          >
             Clear all
           </button>
         </div>
         
         <div className="space-y-6">
-          {/* Application Deadline Filter */}
+          {/* Application Deadline Filter (Date Range) */}
           <div>
             <h4 className="font-bold mb-3 text-text-light dark:text-text-dark">Application Deadline</h4>
-            <div className="space-y-2">
-              <label className="flex items-center gap-2 cursor-pointer">
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-1">
+                <label htmlFor="deadlineStart" className="text-xs font-medium text-gray-500 dark:text-gray-400">From</label>
                 <input 
-                  type="radio" 
-                  name="deadline" 
-                  value="1_month"
-                  checked={filters.deadline === '1_month'}
-                  onChange={handleRadioChange}
-                  className="form-radio text-primary-darker focus:ring-primary-darker"
+                  type="date" 
+                  id="deadlineStart"
+                  name="deadlineStart" 
+                  value={filters.deadlineStart}
+                  onChange={handleTextChange}
+                  className="form-input block w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark text-sm focus:border-primary focus:ring-primary"
                 />
-                <span>Next 1 month</span>
-              </label>
-              <label className="flex items-center gap-2 cursor-pointer">
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="deadlineEnd" className="text-xs font-medium text-gray-500 dark:text-gray-400">To</label>
                 <input 
-                   type="radio" 
-                   name="deadline" 
-                   value="3_months"
-                   checked={filters.deadline === '3_months'}
-                   onChange={handleRadioChange}
-                   className="form-radio text-primary-darker focus:ring-primary-darker"
+                  type="date" 
+                  id="deadlineEnd"
+                  name="deadlineEnd" 
+                  value={filters.deadlineEnd}
+                  onChange={handleTextChange}
+                  className="form-input block w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark text-sm focus:border-primary focus:ring-primary"
                 />
-                <span>Next 3 months</span>
-              </label>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input 
-                   type="radio" 
-                   name="deadline" 
-                   value="6_months"
-                   checked={filters.deadline === '6_months'}
-                   onChange={handleRadioChange}
-                   className="form-radio text-primary-darker focus:ring-primary-darker"
-                />
-                <span>Next 6 months</span>
-              </label>
+              </div>
             </div>
           </div>
 

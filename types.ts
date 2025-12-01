@@ -7,10 +7,24 @@ export interface Program {
   deadline: string;
   scholarshipStatus: 'Scholarship Available' | 'Fully Funded' | null;
   imageUrl: string;
+  // Detailed View Fields
+  department?: string;
+  description?: string;
+  location?: string;
+  duration?: string;
+  mode?: string;
+  startDate?: string;
+  tuition?: string;
+  eligibility?: string[];
+  deadlines?: {
+    early?: string;
+    final?: string;
+  };
 }
 
 export interface FilterState {
-  deadline: string;
+  deadlineStart: string;
+  deadlineEnd: string;
   scholarshipAvailable: boolean;
   fullyFunded: boolean;
   phd: boolean;
